@@ -101,3 +101,26 @@ jmeter.save.saveservice.requestHeaders=true
 jmeter.save.saveservice.url=true
 jmeter.save.saveservice.responseHeaders=true
 ```
+# Pass thread count or loop count or period via command line
+Artile
+- https://mkbansal.wordpress.com/2012/08/01/jmeter-command-line-script-execution-with-arguments/
+- https://medium.com/@priyank.it/jmeter-pass-command-line-properties-65a431875024
+
+The best way is to define properties within a properties file and then define user variables which will consume these properties
+
+`mysetting.properties`
+```
+mysetting.maxThreads=100
+mysetting.loopCount=1
+mysetting.gawf.rampUp=10
+```
+
+In the command line, make sure we have option `-p mysetting.properties`
+
+Define user variable in `User Defined Variable` config element
+
+`Name`: `varMaxThreads`
+
+`Value`: `${__P(mysetting.maxThreads,50)}`
+
+And then we can use `varMaxThreads` in the Thread properties normally
