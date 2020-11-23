@@ -43,8 +43,37 @@ select @tblItemCnt = count(0) from @tblItem
 print '    [' + @tableName + '] total items to delete: ' + CAST(@tblItemCnt AS VARCHAR(MAX))
 ```
 
+Convert datetime to string
+https://www.sqlservertutorial.net/sql-server-system-functions/convert-datetime-to-string/
+```
+CONVERT(VARCHAR, datetime [,style])
+```
+
 # Remember to reset Identity when doing a purge
 ```sql
 delete from TableOfSomething
 DBCC CHECKIDENT ('TableOfSomething', RESEED, 0);
 ```
+
+# Add days to current date
+Article link
+* https://www.w3schools.com/sql/func_sqlserver_dateadd.asp
+
+```
+DATEADD(day, 20, GETDATE())
+```
+
+# Get the Id of latest inserted row
+Article link
+* https://www.munisso.com/2012/06/07/4-ways-to-get-identity-ids-of-inserted-rows-in-sql-server/
+
+```
+INSERT INTO TableA (...) VALUES (...)
+SET @LASTID = SCOPE_IDENTITY()
+```
+# Random integer number
+https://www.techonthenet.com/sql_server/functions/rand.php#:~:text=To%20create%20a%20random%20integer,generate%20a%20random%20number%20for.
+```
+SELECT FLOOR(RAND()*(b-a+1))+a;
+```
+Where a is the smallest number and b is the largest number that you want to generate a random number for.
